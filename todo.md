@@ -25,6 +25,7 @@
 
 ## Phase 3: Main Navigation & Layout
 - [x] Build main LCARS navigation layout
+- [x] Reorganize top control buttons below title text
 - [x] Create sidebar with module buttons (Sensors, Comm, Shield, Fire, Transp, Tractor, Motor, Viewer, Logs, Mode)
 - [x] Build top control bar with Sound/Start/Stop/Setup buttons
 - [x] Build main content display area

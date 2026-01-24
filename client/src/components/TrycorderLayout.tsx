@@ -53,8 +53,15 @@ export const TrycorderLayout: React.FC<TrycorderLayoutProps> = ({
   return (
     <div className="min-h-screen bg-black text-white lcars-bg">
       {/* Top Control Bar */}
-      <div className="bg-black border-b-2 border-[#8899FF] p-4 flex justify-between items-center">
-        <div className="flex gap-2">
+      <div className="bg-black border-b-2 border-[#8899FF] p-4">
+        <div className="text-center mb-4">
+          <h1 className="text-3xl font-bold text-[#FF9966] tracking-wider">
+            TRYCORDER
+          </h1>
+          <p className="text-xs text-[#8899FF] tracking-widest">LCARS SYSTEM</p>
+        </div>
+
+        <div className="flex gap-2 justify-center">
           <LCARSButton
             color="gray"
             size="sm"
@@ -73,15 +80,6 @@ export const TrycorderLayout: React.FC<TrycorderLayoutProps> = ({
             Setup
           </LCARSButton>
         </div>
-
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-[#FF9966] tracking-wider">
-            TRYCORDER
-          </h1>
-          <p className="text-xs text-[#8899FF] tracking-widest">LCARS SYSTEM</p>
-        </div>
-
-        <div className="w-20" />
       </div>
 
       <LCARSBar orientation="horizontal" />
