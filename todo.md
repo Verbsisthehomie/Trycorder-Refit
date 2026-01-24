@@ -2,6 +2,7 @@
 
 ## Phase 1: Design System & Core Infrastructure
 - [x] Configure Tailwind CSS with LCARS color palette
+- [x] Integrate Okuda font (Star Trek LCARS font) from web source
 - [x] Create LCARS custom color variables in CSS
 - [x] Build LCARS button component library (rounded, color-coded)
 - [x] Build LCARS bar/divider components (horizontal, vertical)
