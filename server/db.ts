@@ -1,7 +1,16 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
-import { ENV } from './_core/env';
+import {
+  InsertUser,
+  users,
+  sensorLogs,
+  voiceCommands,
+  mediaFiles,
+  crewMembers,
+  serverConnections,
+  conversationHistory,
+} from "../drizzle/schema";
+import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -84,9 +93,198 @@ export async function getUserByOpenId(openId: string) {
     return undefined;
   }
 
-  const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
+  const result = await db
+    .select()
+    .from(users)
+    .where(eq(users.openId, openId))
+    .limit(1);
 
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// Sensor data functions
+export async function logSensorData(
+  userId: number,
+  data: {
+    temperature?: number;
+    pressure?: number;
+    light?: number;
+    magnetic?: number;
+    gravity?: number;
+    orientationAlpha?: number;
+    orientationBeta?: number;
+    orientationGamma?: number;
+  }
+) {
+  const db = await getDb();
+  if (!db) return;
+
+  await db.insert(sensorLogs).values({
+    userId,
+    temperature: data.temperature ? data.temperature.toString() : undefined,
+    pressure: data.pressure ? data.pressure.toString() : undefined,
+    light: data.light ? data.light.toString() : undefined,
+    magnetic: data.magnetic ? data.magnetic.toString() : undefined,
+    gravity: data.gravity ? data.gravity.toString() : undefined,
+    orientationAlpha: data.orientationAlpha ? data.orientationAlpha.toString() : undefined,
+    orientationBeta: data.orientationBeta ? data.orientationBeta.toString() : undefined,
+    orientationGamma: data.orientationGamma ? data.orientationGamma.toString() : undefined,
+  });
+}
+
+export async function getSensorLogs(userId: number, limit: number = 100) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db
+    .select()
+    .from(sensorLogs)
+    .where(eq(sensorLogs.userId, userId))
+    .orderBy((t) => t.createdAt)
+    .limit(limit);
+}
+
+// Voice commands functions
+export async function logVoiceCommand(
+  userId: number,
+  data: {
+    transcript: string;
+    command: string;
+    confidence: number;
+    result: string;
+  }
+) {
+  const db = await getDb();
+  if (!db) return;
+
+  await db.insert(voiceCommands).values({
+    userId,
+    transcript: data.transcript,
+    command: data.command,
+    confidence: data.confidence.toString(),
+    result: data.result,
+  });
+}
+
+// Media files functions
+export async function addMediaFile(
+  userId: number,
+  data: {
+    filename: string;
+    fileType: string;
+    fileUrl: string;
+    fileKey: string;
+    fileSize: number;
+    description?: string;
+  }
+) {
+  const db = await getDb();
+  if (!db) return;
+
+  await db.insert(mediaFiles).values({
+    userId,
+    ...data,
+  });
+}
+
+export async function getMediaFiles(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db
+    .select()
+    .from(mediaFiles)
+    .where(eq(mediaFiles.userId, userId))
+    .orderBy((t) => t.createdAt);
+}
+
+// Crew members functions
+export async function addCrewMember(
+  userId: number,
+  data: {
+    name: string;
+    rank?: string;
+    position?: string;
+    email?: string;
+    phone?: string;
+    notes?: string;
+  }
+) {
+  const db = await getDb();
+  if (!db) return;
+
+  await db.insert(crewMembers).values({
+    userId,
+    ...data,
+  });
+}
+
+export async function getCrewMembers(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db
+    .select()
+    .from(crewMembers)
+    .where(eq(crewMembers.userId, userId))
+    .orderBy((t) => t.name);
+}
+
+// Server connections functions
+export async function addServerConnection(
+  userId: number,
+  data: {
+    name: string;
+    host: string;
+    port?: number;
+    username?: string;
+    connectionType: "ssh" | "ftp" | "http";
+  }
+) {
+  const db = await getDb();
+  if (!db) return;
+
+  await db.insert(serverConnections).values({
+    userId,
+    ...data,
+  });
+}
+
+export async function getServerConnections(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db
+    .select()
+    .from(serverConnections)
+    .where(eq(serverConnections.userId, userId))
+    .orderBy((t) => t.name);
+}
+
+// Conversation history functions
+export async function addConversationMessage(
+  userId: number,
+  role: "user" | "assistant",
+  content: string
+) {
+  const db = await getDb();
+  if (!db) return;
+
+  await db.insert(conversationHistory).values({
+    userId,
+    role,
+    content,
+  });
+}
+
+export async function getConversationHistory(userId: number, limit: number = 50) {
+  const db = await getDb();
+  if (!db) return [];
+
+  return await db
+    .select()
+    .from(conversationHistory)
+    .where(eq(conversationHistory.userId, userId))
+    .orderBy((t) => t.createdAt)
+    .limit(limit);
+}
