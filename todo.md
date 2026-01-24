@@ -60,12 +60,14 @@
 - [ ] Add crew evaluation/notes system
 
 ## Phase 7: Server Management Dashboard
-- [ ] Build server status monitoring display
-- [ ] Create server connection management UI
-- [ ] Implement server metrics display (CPU, memory, disk)
-- [ ] Build server control commands
-- [ ] Create server logs viewer
-- [ ] Add server configuration interface
+- [x] Create Server Module component with LCARS styling
+- [x] Build server list UI with connection status indicators
+- [x] Implement add/edit/delete server functionality
+- [x] Create server connection logic with status tracking
+- [x] Build server details panel with metrics display
+- [x] Implement server control commands (start, stop, restart)
+- [ ] Add server logs viewer
+- [ ] Create server configuration interface
 
 ## Phase 8: SSH Client Interface
 - [ ] Build SSH connection manager

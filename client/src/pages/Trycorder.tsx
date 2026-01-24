@@ -4,6 +4,7 @@ import SensorModule from './modules/SensorModule';
 import CommModule from './modules/CommModule';
 import ShieldModule from './modules/ShieldModule';
 import FireModule from './modules/FireModule';
+import ServerModule from './modules/ServerModule';
 
 export default function Trycorder() {
   const [currentModule, setCurrentModule] = useState<TrycorderModule>('sensors');
@@ -29,7 +30,7 @@ export default function Trycorder() {
       case 'logs':
         return <div className="text-[#FF9966]">SYSTEM LOGS - AVAILABLE</div>;
       case 'mode':
-        return <div className="text-[#666688]">MODE SELECTION - ACTIVE</div>;
+        return <ServerModule />;
       default:
         return <div>UNKNOWN MODULE</div>;
     }
