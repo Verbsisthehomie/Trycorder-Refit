@@ -142,3 +142,12 @@
 - [ ] Create deployment checklist
 - [ ] Final testing and bug fixes
 - [ ] Prepare for production release
+
+## Phase 16: Android APK Build with Capacitor
+- [x] Install and configure Capacitor
+- [x] Set up Android platform
+- [ ] Configure app metadata and icons
+- [ ] Build production APK
+- [ ] Test APK on Android device/emulator
+- [ ] Sign APK for release
+- [ ] Prepare F-Droid submission files

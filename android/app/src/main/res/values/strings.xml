@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Trycorder LCARS</string>
+    <string name="title_activity_main">Trycorder LCARS</string>
+    <string name="package_name">com.trycorder.lcars</string>
+    <string name="custom_url_scheme">com.trycorder.lcars</string>
+</resources>
