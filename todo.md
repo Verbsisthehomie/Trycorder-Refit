@@ -147,7 +147,8 @@
 - [x] Install and configure Capacitor
 - [x] Set up Android platform
 - [ ] Configure app metadata and icons
-- [ ] Build production APK
-- [ ] Test APK on Android device/emulator
+- [ ] Create automated build script for zo.computer cloud server
+- [ ] Build production APK on cloud server
+- [ ] Test APK on Galaxy Tab device
 - [ ] Sign APK for release
 - [ ] Prepare F-Droid submission files
